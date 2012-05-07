@@ -47,6 +47,11 @@ public class JavaClassConverter extends AbstractSingleValueConverter {
 
     public Object fromString(String str) {
         try {
+            if(str != null) {
+                // if the class name's xml element has spaces or a line break
+                // trim the string so we don't throw a ClassNotFoundException 
+                str = str.trim();
+            }
             return loadClass(str);
         } catch (ClassNotFoundException e) {
             throw new ConversionException("Cannot load java class " + str, e);
